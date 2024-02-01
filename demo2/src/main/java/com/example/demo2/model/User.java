@@ -20,8 +20,4 @@ public class User implements Serializable {
     @Column(name = "stamina")
     private int stamina;
 
-    // Nếu không đánh dấu @Column thì sẽ mapping tự động theo tên biến
-    private int atk;
-    private int def;
-    private int agi;
 }
