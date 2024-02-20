@@ -7,6 +7,8 @@ import com.example.demo2.until.ModelMapperUntils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,27 +28,44 @@ public class ChamCongServices implements IChamCongServices{
 
     @Override
     public ChamCongDTO findById(String maChamCong) {
+        System.out.println("services "+maChamCong);
         if (repository.existsById(maChamCong)){
-            return mapper.mapItem(repository.findById(maChamCong),ChamCongDTO.class);
+            System.out.println("check "+repository.findById(maChamCong));
+            return mapper.mapItem(repository.findById(maChamCong).get(),ChamCongDTO.class);
         }
         return  null;
     }
 
     @Override
-    public ChamCongDTO create(ChamCongDTO chamCongDTO) {
-
-        if (!repository.existsById(chamCongDTO.getMaChamCong())){
-            return mapper.mapItem(repository.save(mapper.mapItem(chamCongDTO, ChamCong.class)),ChamCongDTO.class);
-        }
-        return chamCongDTO;
+    public ChamCongDTO findByNhanVien(String maNhanVien) {
+        return null;
     }
 
     @Override
-    public ChamCongDTO update(ChamCongDTO chamCongDTO) {
-        if (repository.existsById(chamCongDTO.getMaChamCong())){
-            return mapper.mapItem(repository.save(mapper.mapItem(chamCongDTO, ChamCong.class)),ChamCongDTO.class);
+    public List<ChamCongDTO> findByNhanVienFromTo(String maNhanVien, Date start, Date end) {
+        return null;
+    }
+
+    @Override
+    public ChamCongDTO create(ChamCong chamCong) {
+        chamCong.setNgayChamCong(new Date());
+        SimpleDateFormat sdf = new SimpleDateFormat("yyMMddhhmmssSSS");
+        String dateStr = sdf.format(chamCong.getNgayChamCong());
+        String hexStr = Long.toHexString(Long.parseLong(dateStr));
+        chamCong.setMaChamCong(chamCong.getLoaiChamCong().toUpperCase()+chamCong.getNhanVien().getMaNhanVien()+hexStr);
+        if (!repository.existsById(chamCong.getMaChamCong())){
+            return mapper.mapItem(repository.save(chamCong),ChamCongDTO.class);
         }
-        return chamCongDTO;
+        return null;
+    }
+
+    @Override
+    public ChamCongDTO update(ChamCong chamCong) {
+//        if (repository.existsById(chamCongDTO.getMaChamCong())){
+//            return mapper.mapItem(repository.save(mapper.mapItem(chamCongDTO, ChamCong.class)),ChamCongDTO.class);
+//        }
+//        return chamCongDTO;
+        return null;
     }
 
     @Override

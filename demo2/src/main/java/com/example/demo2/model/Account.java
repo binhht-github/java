@@ -1,9 +1,9 @@
 package com.example.demo2.model;
 
 
-import com.example.demo2.modelDTO.AccountDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+//import com.example.demo2.modelDTO.AccountDTO;
+//import com.fasterxml.jackson.annotation.JsonIgnore;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -26,7 +26,7 @@ public class Account {
 
 //    @OneToOne(mappedBy = "account")
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToOne()
     @JoinColumn(name = "maNhanVien", referencedColumnName = "maNhanVien" )
     private NhanVien nhanVien;
@@ -42,6 +42,21 @@ public class Account {
 
     @Column(name = "createDate")
     private Date createDate;
+
+    public Account(NhanVien nhanVien, String username, String deleted, Date createDate) {
+        this.nhanVien = nhanVien;
+        this.username = username;
+        this.deleted = deleted;
+        this.createDate = createDate;
+    }
+
+    public Account(NhanVien nhanVien, String username, String password, String deleted, Date createDate) {
+        this.nhanVien = nhanVien;
+        this.username = username;
+        this.password = password;
+        this.deleted = deleted;
+        this.createDate = createDate;
+    }
 
     @Override
     public String toString() {

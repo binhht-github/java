@@ -1,10 +1,10 @@
 package com.example.demo2.modelDTO;
 
 import com.example.demo2.model.NhanVien;
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import javax.persistence.Column;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ public class ChamCongDTO {
 
     private String maChamCong;
 
-    private NhanVien nhanVien;
+    private String maNhanVien;
 
     private Date ngayChamCong;
 

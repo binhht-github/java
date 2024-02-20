@@ -1,6 +1,9 @@
 package com.example.demo2.api;
 
 
+import com.example.demo2.services.Account.AccountServices;
+import com.example.demo2.services.NhanVien.INhanVienServices;
+import com.example.demo2.services.NhanVien.NhanVIenServices;
 import com.example.demo2.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,11 +14,16 @@ import java.util.Date;
 @RestController
 public class UserRestController {
         @Autowired
-    UserServices us;
+        NhanVIenServices nvs;
+
+        @Autowired
+         AccountServices accServices;
 
         @GetMapping("/")
         public  void geta(){
-            us.get();
+
+            System.out.println( nvs.check());
+//            us.get();
 //            Date date = new Date();
 ////            date.setYear(2022);
 ////    us.get();

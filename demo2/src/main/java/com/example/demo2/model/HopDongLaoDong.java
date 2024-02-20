@@ -1,6 +1,6 @@
 package com.example.demo2.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +16,6 @@ public class HopDongLaoDong {
 //    @Id
 //    @GeneratedValue(strategy = GenerationType.IDENTITY)
 //    private Long id;
-
-
 //    @Column(name = "maHopDongLaoDong")
     @Id
     private String maHopDongLaoDong;

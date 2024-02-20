@@ -1,6 +1,6 @@
 package com.example.demo2.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,5 +30,7 @@ public class PhongBan {
     @Column(name = "truongPhong")
     private String truongPhong; // lk voi  nhan vien ( ma nhan vien )
 
-
+    public PhongBan(String maPhongBan) {
+        this.maPhongBan = maPhongBan;
+    }
 }

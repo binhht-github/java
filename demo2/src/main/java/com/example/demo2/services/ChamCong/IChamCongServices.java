@@ -1,7 +1,9 @@
 package com.example.demo2.services.ChamCong;
 
+import com.example.demo2.model.ChamCong;
 import com.example.demo2.modelDTO.ChamCongDTO;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IChamCongServices {
@@ -9,9 +11,13 @@ public interface IChamCongServices {
 
     ChamCongDTO findById(String maChamCong);
 
-    ChamCongDTO create(ChamCongDTO chamCongDTO);
+    ChamCongDTO findByNhanVien(String maNhanVien);
 
-    ChamCongDTO update(ChamCongDTO chamCongDTO);
+    List<ChamCongDTO> findByNhanVienFromTo(String maNhanVien, Date start, Date end);
+
+    ChamCongDTO create(ChamCong chamCong);
+
+    ChamCongDTO update(ChamCong chamCong);
 
     ChamCongDTO delete(String maChamCong);
 

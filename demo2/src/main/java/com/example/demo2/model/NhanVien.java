@@ -1,19 +1,14 @@
 package com.example.demo2.model;
-import jakarta.persistence.*;
-
-
+//import jakarta.persistence.*;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Date;
 import java.util.List;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
@@ -91,7 +86,6 @@ public class NhanVien {
     @OneToOne(mappedBy = "nhanVien")
     private BaoHiemXaHoi bhxh;
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "maPhongBan")
     private PhongBan phongBan;

@@ -1,6 +1,6 @@
 package com.example.demo2.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.Date;
 public class ChamCong {
 
     @Id
-    private String maChamCong;
+    private String maChamCong; // Teen thiet bi + ma nhan vien + ngay cham cong 240219
 
 
     @ManyToOne

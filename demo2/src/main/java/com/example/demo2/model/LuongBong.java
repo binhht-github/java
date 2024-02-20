@@ -1,6 +1,6 @@
 package com.example.demo2.model;
 
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -42,4 +42,6 @@ public class LuongBong {
     @Column(name = "luongThucLinh")
     private String luongThucLinh; // bang luong co ban * he so luong + phu cap - thue thu nhap ca nhan - tien phat - luong cua ngay nghi
 
+    @Column(name  = "createDate")
+    private  Date creatDate;
 }

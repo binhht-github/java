@@ -1,5 +1,6 @@
 package com.example.demo2.services.PhongBan;
 
+import com.example.demo2.model.PhongBan;
 import com.example.demo2.modelDTO.PhongBanDTO;
 
 import java.util.List;
@@ -7,11 +8,13 @@ import java.util.List;
 public interface IPhongBanServices {
     List<PhongBanDTO> findAll();
 
-    PhongBanDTO findById(Long id);
+    PhongBanDTO findById(String id);
 
-    PhongBanDTO create(PhongBanDTO phongBanDTO);
+    List<PhongBanDTO> findByName(String name);
 
-    PhongBanDTO update(PhongBanDTO phongBanDTO);
+    PhongBanDTO create(PhongBan phongBan);
+
+    PhongBanDTO update(PhongBan phongBan);
 
     List<PhongBanDTO> delete(String id);
 }

@@ -1,7 +1,7 @@
 package com.example.demo2.modelDTO;
 
 import com.example.demo2.model.NhanVien;
-import jakarta.persistence.*;
+import javax.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
