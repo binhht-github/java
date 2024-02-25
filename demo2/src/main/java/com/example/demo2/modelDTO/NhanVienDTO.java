@@ -44,8 +44,11 @@ public class NhanVienDTO {
 //    @JsonIgnore
     @JsonProperty("phongban")
     @NotNull(message = "Không được để trống Phòng Ban")
-//    private PhongBan phongBan;
-    private String maPhongBan;
+    private String tenPhongBan;
+
+    @JsonProperty("chucvu")
+    @NotNull(message = "Không được để trống Chuc vu")
+    private String tenChucVu;
 
     @NotBlank(message = "Không được để trống Ngày Sinh")
     private Date ngaySinh;

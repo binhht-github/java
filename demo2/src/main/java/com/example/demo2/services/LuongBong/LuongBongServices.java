@@ -1,12 +1,21 @@
 package com.example.demo2.services.LuongBong;
 
+import com.example.demo2.model.NhanVien;
+import com.example.demo2.model.PhuCap;
 import com.example.demo2.modelDTO.LuongBongDTO;
 import com.example.demo2.modelDTO.NhanVienDTO;
+import com.example.demo2.repository.ChamCongRepository;
 import com.example.demo2.repository.LuongBongRepository;
+import com.example.demo2.repository.NhanVienRepository;
 import com.example.demo2.until.ModelMapperUntils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.DateFormat;
+import java.text.DecimalFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,126 +27,180 @@ public class LuongBongServices implements ILuongBongServices{
     @Autowired
     LuongBongRepository repository;
 
+    @Autowired
+    NhanVienRepository nhanVienRepository;
+
+    @Autowired
+    ChamCongRepository chamCongRepository;
 
     @Override
-    public List<LuongBongDTO> findAll() {
-        return mapper.mapList(repository.findAll(),LuongBongDTO.class);
-    }
+    public List<LuongBongDTO> findAllByNhanViens(Date month) throws ParseException {
+        String testDate = "29-Apr-2010,13:00:14 PM";
+        DateFormat formatter = new SimpleDateFormat("d-MMM-yyyy,HH:mm:ss aaa");
+        System.out.println(new Date());
+        Date date1 = formatter.parse("01-Feb-2024,13:00:14 PM");
+        Date date2 = formatter.parse("21-Feb-2024,13:00:14 PM");
 
-    @Override
-    public LuongBongDTO findById(Long id) {
-        return null;
+//        Date date1 = new Date("2001-01-24T17:00:00.000+00:00");
+//        Date date2 = new Date("2001-01-24T17:00:00.000+00:00");
+//        System.out.println(date1+" "+date2);
+//        System.out.println(chamCongRepository.tinhNgayCong("NS0002",date1,date2));
+        List<NhanVien> listNhanVien = nhanVienRepository.findAll();
+        List<LuongBongDTO> listLuongBongDTO =  new ArrayList<>();
+
+
+//        int luongChinh =0;
+
+        for(NhanVien nv :listNhanVien){
+            int a[]={};
+            int soNgayCong = chamCongRepository.tinhNgayCong(nv.getMaNhanVien(),date1,date2);
+            int luongChinh =tinhLuonChinh(nv.getLuongCoBan(),nv.getHeSoLuong(),a,soNgayCong);
+            int luongBHXH =tinhBHXH(luongChinh);
+            int luongBHTN =tinhBHTN(luongChinh);
+            int luongBHYT =tinhBHYT(luongChinh);
+            int luongBHBB = tinhBHBatBuoc(luongBHXH,luongBHYT,luongBHTN);
+            int thueTNCN = tinhThueTNCN(luongChinh,luongBHBB);
+            listLuongBongDTO.add(new LuongBongDTO(
+                   nv.getMaNhanVien(),
+                    nv.getHoTen(),
+                    nv.getChucVu().getTenChucVu(),
+                    nv.getPhongBan().getTenPhongBan(),
+                    month,
+                    Math.round(luongChinh),
+                    soNgayCong,
+                    0,
+                    0,
+                    luongBHBB,
+                    luongBHXH,
+                    luongBHTN,
+                    luongBHYT,
+                    nv.getLuongCoBan(),
+                    0,
+                    nv.getHeSoLuong(),
+                    "phucap",
+                            thueTNCN,
+                    luongChinh-thueTNCN
+
+            ));
+        }
+        System.out.println(listNhanVien);
+        return listLuongBongDTO;
     }
 
     @Override
     public LuongBongDTO create(NhanVienDTO nhanVienDTO) {
-
         return null;
     }
 
-    @Override
-    public LuongBongDTO update(LuongBongDTO luongBongDTO) {
-        return null;
+    public static String priceWithDecimal (float price) {
+        DecimalFormat formatter = new DecimalFormat("###,###,###.00");
+        return formatter.format(price);
+    }
+    //=========================================================================
+    // khaon + vao luong
+    private  List<Integer> tinhPhuCap(String listPhuCap){
+        List<Integer> results =new ArrayList<>();
+        // xăng xe-1000000;
+        // ăn trưa-2800000;
+        String chuoi = "xăng xe-1000000;ăn trưa-2800000;";
+        String[] parts = listPhuCap.split(";");
+        for(int i=0;i<parts.length;i++)
+        {
+            results.add(Integer.parseInt(parts[i].split("-")[1]));
+            System.out.println(parts[i]+" so tien "+ parts[i].split("-")[1]);
+        }
+        System.out.println("list so tien "+results);
+        return results;
     }
 
-    @Override
-    public List<LuongBongDTO> delete(String id) {
-        return null;
-    }
-    // lấy cột hệ số lương, lương cơ bản, mã nhân viên,
-
-    // dk có ngày nghỉ k lương và có lương
-    // nghỉ không lương
-    // lương thực lĩnh = (lương cơ bản * hệ số lương) - (lương cơ bản/số công * số ngày nghỉ) - thuế thu nhập cá nhân + phụ cấp
-
-    // nghỉ có lương            lương cơ bản                        nghỉ k lương                        nghỉ có lương                   kỷ luật          thuế               bảo hiểm            phụ cấp
-    // lương thực lĩnh = (lương cơ bản * hệ số lương) - (lương cơ bản/số công * số ngày nghỉ) + (lương cơ bản/số công * số ngày nghỉ) - (kỷ luật) - thuế thu nhập cá nhân - bảo hiểm xã hội  + phụ cấp
-
-
-
-    //
-    // tạo bảng nghỉ phép
-    //        Mã kỳ nghỉ (khóa chính): Mã số duy nhất để nhận diện mỗi kỳ nghỉ.
-    //        Mã nhân viên: Mã số của nhân viên hưởng kỳ nghỉ.
-    //        Loại kỳ nghỉ: Loại kỳ nghỉ (nghỉ phép, nghỉ ốm, ...).
-    //        Ngày bắt đầu: Ngày bắt đầu nghỉ.
-    //        Ngày kết thúc: Ngày kết thúc nghỉ.
-    //        Số ngày nghỉ: Số ngày nghỉ.
-    //        Tính lương: boolenm
-    //        Lý do: Lý do nghỉ (nếu có).
-    //
-    //  TÍnh lương gross lương cơ bản nhân hệ số lương
-    int maxNgayCong = 26;
-    private Float luongGross(float luongCoBan, float heSo,float phuCap){
-        return luongCoBan*heSo + phuCap;
-    }
-    //  nghỉ không lương  lương  vs nghi có lương (viết bên bảng kỳ nghỉ)
-    private Float nghiKhongLuong(float luongCoBan, float heSo, int soNgayNghi){
-        return     luongCoBan*heSo/maxNgayCong * soNgayNghi ;
-    }
-
-    private Float nghiCoLuong(float luongCoBan, float heSo, int soNgayNghi){
-        return      luongCoBan*heSo/maxNgayCong * soNgayNghi ;
-    }
-    //      kỷ luật
-    private double luongKyLuat(Date ngayBatDau,Date ngayKetThuc){
-//        tìm lỗi bị trừ trong bảng kỷ luật từ ngày bắt đầu đến ngày kết thúc
-        double total =0;
-        return  total;
-    }
-    //    Mức lương ghi trong hợp đồng lao động: 10 triệu đồng.
-    //    Phụ cấp chức vụ: 1 triệu đồng.
-    //    Phụ cấp thâm niên: 500.000 đồng.
-    //    Mức lương đóng bảo hiểm: 10 triệu đồng + 1 triệu đồng + 500.000 đồng = 11.500.000 đồng.
-
-    //    Mức đóng: BHXH (8%), BHYT (1.5%), BHTN (1%)
-    //    Bảo hiểm bắt buộc = 20,000,000 x 8% + 20,000,000 x 1.5% + 20,000,000 x 1% = 2,100,000đ
-    //    Giảm trừ bản thân = 11,000,000
-    //    Giảm trừ người phụ thuộc = 0 x 4,400,000 = 0
-    //    Thu nhập tính thuế = 20,000,000 - 2,100,000 - 11,000,000 - 0 = 6,900,000
-    //    Mức thuế áp dụng đối với 6,900,000 là 10% - 250,000 (tham khảo bảng bên dưới)
-    //    Thuế thu nhập cá nhân phải nộp = 6,900,000 x 10% - 250,000 = 440,000đ
-    private double tinhThue(float luongGross, float luongCoBan){
-            float baoHiem=0;
-            if(luongGross > 29800000){
-                baoHiem = (float) (29800000 * 0.08 + 29800000 * 0.015% + luongGross * 0.01);
+    private int tinhLuonChinh(int luongCoBan, float heSoLuong, int[] phuCap,int soNgayCong){
+        if(soNgayCong ==0){
+            return 0;
+        }
+        int result =0;
+        if (phuCap.length > 0){
+            for (int i : phuCap) {
+                result+=i;
             }
-            baoHiem = (float) (luongGross * 0.08 + luongGross * 0.015% + luongGross * 0.01);
-            float giamTrubanThan = 11000000;
-            int nguoiPhuThuoc = 0 * 4400000;
-            float thuNhap = luongCoBan - baoHiem - giamTrubanThan - nguoiPhuThuoc;
-            if (thuNhap<=5000000){
-                return thuNhap*0.05;
-                }
-            if (thuNhap<=10000000){
-                return thuNhap*0.1 -250000;
-            }
-            if (thuNhap<=18000000){
-                return thuNhap*0.15 - 750000;
-            }
-            if (thuNhap<=32000000){
-                return thuNhap*0.2 - 1650000;
-            }
-            if (thuNhap<=52000000){
-                return thuNhap*0.25 - 3250000;
-            }
-            if (thuNhap<=80000000){
-                return thuNhap*0.3 - 5850000;
-            }
-        return thuNhap*0.35 - 9850000;
+        }
+        result = (int) (result + ((luongCoBan*heSoLuong)*((float) soNgayCong/22)));
+        System.out.println("thu nhap chính "+(Math.round(luongCoBan*heSoLuong))+" : "+((float)soNgayCong / 22)+" so ngay cong "+soNgayCong+"  result"+result);
+        return result;
     }
-
-    private double tinhBaoHiemXaHoi(float luongGross){
-        return  luongGross*0.08 + luongGross * 0.0005;
+    // khoan - vao luong
+    private int tinhBHYT(int mucLuong){
+        if(mucLuong >= 29800000){
+            return (int) (29800000*0.08);
+        }
+        return (int) (mucLuong*0.015);
     }
+    private int tinhBHXH(int mucLuong){
+        if(mucLuong >= 29800000){
+            return (int) (29800000*0.08);
+        }
+        return (int) (mucLuong*0.08);
+    }
+    private int tinhBHTN(int mucLuong){
+        if(mucLuong >= 85172000){
+            return (int) (85172000*0.08);
+        }
+        return (int) (mucLuong*0.01);
+    }
+    private int tinhBHBatBuoc(int BHXH,int BHYT,int BHTN){
+        return BHXH + BHYT + BHTN;
+    }
+    private int tinhThueTNCN(int luongChinh, int bhbb){
+        if (luongChinh == 0){
+            return 0;
+        }
+//        luong chinh - bhbb - giam tru ban than - nguoi phu thuoc
+        int thuNhap=luongChinh-bhbb-11000000-(0*4400000);
+        if(thuNhap <=0){
+            return 0;
+        }
+        if (thuNhap<=5000000){
+            return (int) (thuNhap*0.05);
+        }
+        if (thuNhap<=10000000){
+            return (int) (thuNhap*0.1 -250000);
+        }
+        if (thuNhap<=18000000){
+            return (int) (thuNhap*0.15 - 750000);
+        }
+        if (thuNhap<=32000000){
+            return (int) (thuNhap*0.2 - 1650000);
+        }
+        if (thuNhap<=52000000){
+            return (int) (thuNhap*0.25 - 3250000);
+        }
+        if (thuNhap<=80000000){
+            return (int) (thuNhap*0.3 - 5850000);
+        }
+        return (int) (thuNhap*0.35 - 9850000);
+    }
+    private int tinhViphamjKyLuat(NhanVien nv, Date startDate, Date endDate){
 
-    private float luongThucLinh (NhanVienDTO nhanVienDTO, float phuCap){
-//        return luongGross(nhanVienDTO.getLuongCoBan(),nhanVienDTO.getHeSoLuong(),phuCap) - luongKyLuat(ngayBatDau,ngayKetThuc)  -tinhThue() - tinhBaoHiemXaHoi() ;
         return 0;
     }
-//    private float luongThucLinh (float luongCoBan, float heSo,float phuCap,Date ngayBatDau,Date ngayKetThuc){
-//        return luongGross(luongCoBan,heSo,phuCap) - luongKyLuat(ngayBatDau,ngayKetThuc) - nghiKhongLuong() -tinhThue() -tinhBaoHiemXaHoi() + nghiCoLuong();
-//    }
+//
+//    mã nhân viên: lấy từ NhanVien                                     DONE
+//    họ tên: lấy từ NhanVien                                           DONE
+//    chúc danh: lấy từ NhanVien                                        DONE
+//    lương đóng bảo hiểm bắt buộc:                                      X
+//    ngày công đi làm:  call proceducer ra được ngày công từ ngày bắt đầu - ngày kết thúc
+//    ngày công chuẩn:
+//    - các khoản thu  nhập
+//            luong chính: viết hàm tính lương chính                    DONE
+//            phụ cấp: lấy phụ cấp từ api về    công tác có tính thuê   DONE
+//            tăng ca:   viết hàm tính công tăng ca vào chủ nhật
+//    - các khoản trừ vào lương:  viết hàm tính khoản trừ
+//            bảo hiểm bắt buộc                                         DONE
+//                bảo hiểm xã hội: 0.08                                 DONE
+//                bảo hiểm y tếv 0.015                                  DONE
+//                bảo hiểm thất nghiệp: 0.01                            DONE
+//            thuế thu nhập cá nhân: viết hàm tính thuế                 DONE
+//            Tạm ứng:   thêm cột tạm ứng
+//    thực lĩnh: viết hàm thực lĩnh
 }
 
 

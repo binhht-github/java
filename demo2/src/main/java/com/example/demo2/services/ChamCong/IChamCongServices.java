@@ -2,6 +2,7 @@ package com.example.demo2.services.ChamCong;
 
 import com.example.demo2.model.ChamCong;
 import com.example.demo2.modelDTO.ChamCongDTO;
+import com.example.demo2.modelDTO.ChamCongStatisticsDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -22,4 +23,6 @@ public interface IChamCongServices {
     ChamCongDTO delete(String maChamCong);
 
     Boolean exitsCheckById(String maChamCong);
+
+    List<ChamCongStatisticsDTO> getChamCongStatisDTO(Date month);
 }

@@ -1,6 +1,8 @@
 package com.example.demo2.model;
 //import jakarta.persistence.*;
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
@@ -20,27 +22,34 @@ public class NhanVien {
     @Id
     private String maNhanVien;
 
+    @NotBlank(message = "Không được để trống họ tên")
     @Column(name ="hoTen")
     private  String hoTen;
 
+    @NotBlank(message = "Không được để trống CCCD")
     @Column(name = "CCCD")
     private  String cccd;
 
+    @NotBlank(message = "Không được để trống Email")
     @Column(name ="email")
     private  String email;
 
+    @NotBlank(message = "Không được để trống Giới tính")
     @Column(name = "gioiTinh")
     private  String gioiTinh;
 
     @Column(name = "anh")
     private String anh;
 
+    @NotBlank(message = "Không được để trống SĐT")
     @Column(name = "sdt")
     private  String sdt;
 
+    @NotBlank(message = "Không được để trống Địa Chỉ")
     @Column(name = "diaChi")
     private String diaChi;
 
+    @NotNull(message = "Không được để trống Ngày Sinh")
     @Column(name ="ngaySinh")
     private Date ngaySinh;
 
@@ -62,43 +71,33 @@ public class NhanVien {
     @Column(name = "creator")
     private String creator;
 
-//    @OneToOne()
-//    @JoinColumn(name = "id", referencedColumnName = "id" )
-    @JsonIgnore
     @OneToOne(mappedBy = "nhanVien")
     private Account account;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "maChucVu", referencedColumnName = "maChucVu" )
-    @JsonIgnore
-    @OneToOne(mappedBy = "nhanVien")
+    @ManyToOne
+    @JoinColumn(name = "maChucVu")
+    @NotNull(message = "Không được để trống Chúc Vự")
     private ChucVu chucVu;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "maHopDongLaoDong", referencedColumnName = "maHopDongLaoDong" )
-    @JsonIgnore
     @OneToOne(mappedBy = "nhanVien")
     private HopDongLaoDong hopDongLaoDong;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-//    @JoinColumn(name = "maBHXH", referencedColumnName = "maBHXH")
-    @JsonIgnore
     @OneToOne(mappedBy = "nhanVien")
     private BaoHiemXaHoi bhxh;
 
+    @NotNull(message = "Không được để trống Phòng Ban")
     @ManyToOne
     @JoinColumn(name = "maPhongBan")
     private PhongBan phongBan;
 
-    @JsonIgnore
     @OneToMany(mappedBy = "nhanVien")
     private List<LuongBong> luongBongs;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "nhanVien")
     private List<ChamCong> chamCongs;
 
-    @JsonIgnore
+//    @JsonIgnore
     @OneToMany(mappedBy = "nhanVien")
     private List<KyLuat> kyLuats;
 

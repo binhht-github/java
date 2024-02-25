@@ -2,6 +2,7 @@ package com.example.demo2.api;
 
 import com.example.demo2.model.ChamCong;
 import com.example.demo2.modelDTO.ChamCongDTO;
+import com.example.demo2.modelDTO.ChamCongStatisticsDTO;
 import com.example.demo2.services.ChamCong.IChamCongServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -57,6 +59,10 @@ public class ChamCongRestController {
         }
         return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
-//    @GetMapping("cham-congs/{maNhanVien}-{start}-{end}")
+    @GetMapping("cham-cong/statistic")
+    public ResponseEntity<List<ChamCongStatisticsDTO>> getChamCongStatistic(){
+        System.out.println("statistic");
+        return  new ResponseEntity<>(services.getChamCongStatisDTO(new Date()),HttpStatus.OK);
+    }
 
 }

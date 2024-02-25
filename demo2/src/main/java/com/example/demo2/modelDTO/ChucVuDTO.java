@@ -15,13 +15,15 @@ public class ChucVuDTO {
 
     private String maChucVu;
 
-    private NhanVien nhanVien;
+//    private String maNhanVien;
 
     private String tenChucVu;
 
     private String moTa;
 
-    private String mucluongCoBan; //
+    private int mucluongCoBan; //
+
+    private float heSoLuong;
 
     @Override
     public String toString() {

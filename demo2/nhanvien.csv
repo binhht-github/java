@@ -1,0 +1,8 @@
+loai_nhan_vien,ma_nhan_vien,anh,cccd,create_date,creator,cv,deleted,dia_chi,email,gioi_tinh,he_so_luong,ho_ten,luong_co_ban,ngay_sinh,sdt,ma_chuc_vu,ma_phong_ban
+NhanVien,NS0002,anh,0213265065,"2024-02-20 16:29:36.682000",admin,NULL,false,"dia chi",binhht@gmail.com,nam,1.5,"Hoang Thanh binh",18000000,"2001-01-25 00:00:00.000000",0365719297,KT,NS
+NhanVien,NS0003,anh,0213265065,"2024-02-20 16:31:28.058000",admin,NULL,false,"dia chi",binhht@gmail.com,nam,1.5,"Hoang Thanh binh",18000000,"2001-01-25 00:00:00.000000",0365719297,KT,NS
+NhanVien,NS0004,anh,0213265065,"2024-02-20 16:31:37.868000",admin,NULL,false,"dia chi",binhht@gmail.com,nam,1,"Hoang Thanh binh",18000000,"2001-01-25 00:00:00.000000",0365719297,NV,NS
+NhanVien,NS0005,anh,0213265065,"2024-02-20 16:31:54.748000",admin,NULL,false,"dia chi",binhht@gmail.com,nam,2.5,"Hoang Thanh binh",18000000,"2001-01-25 00:00:00.000000",0365719297,GDDH,NS
+NhanVien,NS0006,anh,0213265065,"2024-02-20 16:32:16.084000",admin,NULL,true,"dia chi",binhht@gmail.com,nam,2.5,"Hoang Thanh binh",18000000,"2001-01-25 00:00:00.000000",0365719297,GDDH,NS
+NhanVien,NS0007,anh,0213265065,"2024-02-20 16:32:19.778000",admin,NULL,false,"dia chi",binhht@gmail.com,nam,1,"Hoang Thanh binh",10000000,"2001-01-25 00:00:00.000000",0365719297,NV,NS
+NhanVien,NS0008,anh,0213265065,"2024-02-20 16:32:42.160000",admin,NULL,false,"dia chi",binhht@gmail.com,nam,1.5,"Hoang Thanh binh",12000000,"2001-01-25 00:00:00.000000",0365719297,KT,NS

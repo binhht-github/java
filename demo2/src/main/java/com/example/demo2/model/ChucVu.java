@@ -1,10 +1,14 @@
 package com.example.demo2.model;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -14,22 +18,30 @@ import lombok.Setter;
 @Table(name = "ChucVu")
 public class ChucVu {
 
+    @NotNull
     @Id
     private String maChucVu;
 
 //    @OneToOne(mappedBy = "chucVu")
-    @OneToOne()
-    @JoinColumn(name = "maNhanVien", referencedColumnName = "maNhanVien" )
-    private NhanVien nhanVien;
+//    @OneToOne()
+    @OneToMany(mappedBy = "chucVu")
+//    @JoinColumn(name = "maNhanVien", referencedColumnName = "maNhanVien" )
+    private List<NhanVien> nhanViens;
 
+    @NotNull
     @Column(name = "tenChucVu")
     private String tenChucVu;
 
     @Column(name = "moTa")
     private String moTa;
 
+    @NotNull
     @Column(name = "mucluongCoBan")
-    private String mucluongCoBan; //
+    private int mucluongCoBan; //
+
+    @NotNull
+    @Column(name = "heSoLuong")
+    private float heSoLuong; //
 
     @Override
     public String toString() {

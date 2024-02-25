@@ -30,17 +30,17 @@ public class ChucVuServices implements IChucVuServices{
     }
 
     @Override
-    public ChucVuDTO create(ChucVuDTO chucVuDTO) {
-        if (!repository.existsById(chucVuDTO.getMaChucVu())){
-            return  mapper.mapItem(repository.save(mapper.mapItem(chucVuDTO, ChucVu.class)),ChucVuDTO.class);
+    public ChucVuDTO create(ChucVu chucVu) {
+        if (!repository.existsById(chucVu.getMaChucVu())){
+            return  mapper.mapItem(repository.save(chucVu),ChucVuDTO.class);
         }
         return null;
     }
 
     @Override
-    public ChucVuDTO update(ChucVuDTO chucVuDTO) {
-        if (repository.existsById(chucVuDTO.getMaChucVu())){
-            return  mapper.mapItem(repository.save(mapper.mapItem(chucVuDTO, ChucVu.class)),ChucVuDTO.class);
+    public ChucVuDTO update(ChucVu chucVu) {
+        if (repository.existsById(chucVu.getMaChucVu())){
+            return  mapper.mapItem(repository.save(chucVu),ChucVuDTO.class);
         }
         return null;
     }

@@ -18,7 +18,7 @@ public class NhanVIenRestController {
     INhanVienServices nhanVIenServices;
 
 
-    @GetMapping("/nhanvien-all")
+    @GetMapping("/nhan-vien/all")
     public ResponseEntity<List<NhanVienDTO>>  getAll(){
         System.out.println(nhanVIenServices.findAll());
         return new ResponseEntity<>(nhanVIenServices.findAll(), HttpStatus.OK) ;

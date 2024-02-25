@@ -2,12 +2,14 @@ package com.example.demo2.services.ChamCong;
 
 import com.example.demo2.model.ChamCong;
 import com.example.demo2.modelDTO.ChamCongDTO;
+import com.example.demo2.modelDTO.ChamCongStatisticsDTO;
 import com.example.demo2.repository.ChamCongRepository;
 import com.example.demo2.until.ModelMapperUntils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -79,5 +81,16 @@ public class ChamCongServices implements IChamCongServices{
     @Override
     public Boolean exitsCheckById(String maChamCong) {
         return repository.existsById(maChamCong);
+    }
+
+    @Override
+    public List<ChamCongStatisticsDTO> getChamCongStatisDTO(Date month) {
+//        System.out.println(
+//               mapper.mapList(repository.getChamCongStatistic(month),ChamCongStatisticsDTO.class) );
+//
+//        List<ChamCongStatisticsDTO> li= new ArrayList<>();
+
+//        return repository.getChamCongStatistic(month);
+        return  mapper.mapList(repository.getChamCongStatistic(month),ChamCongStatisticsDTO.class);
     }
 }
