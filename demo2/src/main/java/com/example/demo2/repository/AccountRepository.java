@@ -7,7 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface AccountRepository extends JpaRepository<Account,Long> {
-    public final static String EXISTS_BY_USERNAME = "select * from micro_db.account where username =  ?1";
+    public final static String EXISTS_BY_USERNAME = "select * from account where username =  ?1";
     @Query(value = EXISTS_BY_USERNAME,nativeQuery = true)
     Account existsByUsername(String username);
 
