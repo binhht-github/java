@@ -12,8 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 public class UserService implements UserDetailsService {
     @Autowired
@@ -22,7 +20,8 @@ public class UserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         // Kiểm tra xem user có tồn tại trong database không?
 //        Accounts user = rs.findByUserName(username);
-        Accounts user = rs.findById(Long.parseLong(username)).get();
+        System.out.println(username);
+        Accounts user = rs.findByUserName(username).get();
         System.out.println("======================================================");
         System.out.println(username );
         System.out.println(user);

@@ -10,7 +10,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.modelmapper.ModelMapper;
 
-import java.util.Date;
+import java.time.LocalDate;
+
+//import java.util.Date;
 
 
 @Getter
@@ -37,20 +39,23 @@ public class Account {
     @Column(name = "password")
     private String password;
 
+    @Column(name = "passWordShow")
+    private String passWordShow;
+
     @Column(name = "deleted")
     private String deleted;
 
     @Column(name = "createDate")
-    private Date createDate;
+    private LocalDate createDate;
 
-    public Account(NhanVien nhanVien, String username, String deleted, Date createDate) {
+    public Account(NhanVien nhanVien, String username, String deleted, LocalDate createDate) {
         this.nhanVien = nhanVien;
         this.username = username;
         this.deleted = deleted;
         this.createDate = createDate;
     }
 
-    public Account(NhanVien nhanVien, String username, String password, String deleted, Date createDate) {
+    public Account(NhanVien nhanVien, String username, String password, String deleted, LocalDate createDate) {
         this.nhanVien = nhanVien;
         this.username = username;
         this.password = password;

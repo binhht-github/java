@@ -13,6 +13,7 @@ import java.util.List;
 public class JwtUserFactory {
 
     public static JwtUserDetailsImpl create(Accounts user) {
+        System.out.println("user "+user);
         return new JwtUserDetailsImpl(user.getId(), user.getEmail(), user.getPassword(), createGrantedAuthorities(user.getRoles().getName()));
     }
 

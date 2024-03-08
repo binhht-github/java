@@ -7,6 +7,7 @@ import com.example.demo2.repository.AccountRepository;
 import com.example.demo2.until.ModelMapperUntils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -17,6 +18,8 @@ public class AccountServices implements IAccountServices{
     ModelMapperUntils mapper;
     @Autowired
     AccountRepository repository;
+    @Autowired
+    PasswordEncoder passwordEncoder;
 
     @Override
     public List<AccountDTO> findAll() {
@@ -36,7 +39,9 @@ public class AccountServices implements IAccountServices{
     @Override
     public AccountDTO create(Account account) {
         if (repository.existsByUsername(account.getUsername()) == null){
-            account.setPassword(createPassWord());
+            String passWord = createPassWord();
+            account.setPassword(passwordEncoder.encode(passWord));
+            account.setPassWordShow(passWord);
             return mapper.mapItem( repository.save(account),AccountDTO.class);
         }
         return null;

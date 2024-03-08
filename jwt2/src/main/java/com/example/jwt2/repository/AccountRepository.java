@@ -4,9 +4,11 @@ import com.example.jwt2.model.Accounts;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 @Repository
 public interface AccountRepository extends JpaRepository<Accounts,Long> {
-    Accounts findByUserName(String username);
+    Optional<Accounts> findByUserName(String username);
 //    Accounts findByuserName();
 }
 

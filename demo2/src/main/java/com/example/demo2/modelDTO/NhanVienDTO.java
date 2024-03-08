@@ -12,7 +12,8 @@ import org.springframework.beans.factory.annotation.Value;
 import javax.validation.Valid;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
-import java.util.Date;
+import java.time.LocalDate;
+//import java.util.Date;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -51,7 +52,7 @@ public class NhanVienDTO {
     private String tenChucVu;
 
     @NotBlank(message = "Không được để trống Ngày Sinh")
-    private Date ngaySinh;
+    private LocalDate ngaySinh;
 
 //    @Value("true")
 //    private Boolean taoTaiKhoan;
@@ -65,7 +66,7 @@ public class NhanVienDTO {
     private String deleted;
 
     @Value("${new Date()}")
-    private  Date createDate;
+    private  LocalDate createDate;
 
     private String creator;
 

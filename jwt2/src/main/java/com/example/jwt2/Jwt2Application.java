@@ -30,8 +30,8 @@ public class Jwt2Application implements CommandLineRunner {
         // Khi chương trình chạy
         // Insert vào csdl một user.
         Accounts user = new Accounts();
-        user.setUserName("loda");
-        user.setPassWord(passwordEncoder.encode("loda"));
+        user.setUserName("loda1");
+        user.setPassWord(passwordEncoder.encode("loda1"));
 //        userRepository.save(user);
         System.out.println(user);
     }

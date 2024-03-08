@@ -11,7 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDate;
+//import java.util.Date;
 
 @Getter
 @Setter
@@ -29,9 +30,9 @@ public class AccountDTO {
 
     private String deleted;
 
-    private Date createDate;
+    private LocalDate createDate;
 
-    public AccountDTO(@NotNull(message = "Không được để trống Nhân Viên") NhanVien nhanVien, @NotBlank(message = "Không được để trống UserName") String username, @NotBlank(message = "Không được để trống PassWord") String password, String deleted, Date createDate) {
+    public AccountDTO(@NotNull(message = "Không được để trống Nhân Viên") NhanVien nhanVien, @NotBlank(message = "Không được để trống UserName") String username, @NotBlank(message = "Không được để trống PassWord") String password, String deleted, LocalDate createDate) {
         this.nhanVien = nhanVien;
         this.username = username;
         this.deleted = deleted;

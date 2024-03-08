@@ -1,6 +1,7 @@
-package com.example.jwt2.jwt;
+package com.example.demo2.fillter;
 
-import com.example.jwt2.services.UserService;
+//import com.example.jwt2.services.UserService;
+import com.example.demo2.services.UserServices;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -22,15 +23,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private JwtTokenProvider tokenProvider;
 
     @Autowired
-    private UserService customUserDetailsService;
+    private UserServices customUserDetailsService;
     @Override
     protected void doFilterInternal(HttpServletRequest request,
                                     HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
+        System.out.println("doFilterInternal");
         try {
-            System.out.println("aaaa");
             // Lấy jwt từ request
             String jwt = getJwtFromRequest(request);
+
+            System.out.println(" Lấy jwt từ request "+jwt);
 
             if (StringUtils.hasText(jwt) && tokenProvider.validateToken(jwt)) {
                 // Lấy id user từ chuỗi jwt

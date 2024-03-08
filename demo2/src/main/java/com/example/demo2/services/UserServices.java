@@ -1,46 +1,28 @@
 package com.example.demo2.services;
 
 import com.example.demo2.model.*;
-import com.example.demo2.modelDTO.AccountDTO;
+import com.example.demo2.model.security.CustomUserDetails;
+import com.example.demo2.model.security.JwtUserFactory;
 import com.example.demo2.repository.AccountRepository;
-import com.example.demo2.repository.NhanVienRepository;
-import com.example.demo2.until.ModelMapperUntils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.List;
-
 @Service
-public class UserServices {
+public class UserServices  implements UserDetailsService {
     @Autowired
-    ModelMapperUntils mapper;
-
-
-    @Autowired
-    AccountRepository ar;
-    @Autowired
-    NhanVienRepository nvr;
-
-    public  void get(){
-       NhanVien nv = nvr.findAll().get(0);
-        System.out.println(nv.getAccount());
-//        mapper.mapItem(AccountDTO,AccountDTO.class);
-//        ChucVu cv = new ChucVu();
-//        PhongBan pb = new PhongBan();
-//        BaoHiemXaHoi bhxh = new BaoHiemXaHoi();
-//        bhxh.getNhanVien().getMaNhanVien();
-//        HopDongLaoDong hdld = new HopDongLaoDong();
-//        hdld.getNhanVien().getHoTen();
-//
-//        LuongBong lb = new LuongBong();
-//        lb.getNhanVien().getHeSoLuong();
-//
-//        ChamCong cc = new ChamCong();
-//        cc.getNhanVien().getBhxh();
-
-
-//        pb.get
-//        cv.get
+    private AccountRepository rs;
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        // Kiểm tra xem user có tồn tại trong database không?
+        Account user = rs.findByUsername(username).get();
+//        Account user = rs.findById(Long.parseLong(username)).get();
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+//        return new CustomUserDetails(user);
+        return JwtUserFactory.create(user);
     }
 }

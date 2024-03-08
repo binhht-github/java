@@ -7,7 +7,8 @@ import javax.validation.constraints.NotNull;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
 
-import java.util.Date;
+//import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 @Data
@@ -51,7 +52,7 @@ public class NhanVien {
 
     @NotNull(message = "Không được để trống Ngày Sinh")
     @Column(name ="ngaySinh")
-    private Date ngaySinh;
+    private LocalDate ngaySinh;
 
     @Column (name = "cv")
     private String cv;
@@ -66,7 +67,7 @@ public class NhanVien {
     private String deleted;
 
     @Column(name = "createDate")
-    private  Date createDate;
+    private LocalDate createDate;
 
     @Column(name = "creator")
     private String creator;
@@ -101,6 +102,9 @@ public class NhanVien {
     @OneToMany(mappedBy = "nhanVien")
     private List<KyLuat> kyLuats;
 
+    public NhanVien(String maNhanVien) {
+        this.maNhanVien = maNhanVien;
+    }
 
     @Override
     public String toString() {

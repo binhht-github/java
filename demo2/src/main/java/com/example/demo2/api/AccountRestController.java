@@ -12,6 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @RestController
@@ -26,7 +27,7 @@ public class AccountRestController {
                         accountDTO.getNhanVien(),
                         accountDTO.getUsername(),
                         "false",
-                        new Date()
+                        LocalDate.now()
                 )
             ) != null
         ){
